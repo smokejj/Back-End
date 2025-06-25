@@ -1,0 +1,102 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f3f3;
+    margin: 0;
+    padding: 0;
+}
+
+.home {
+    width: 60%;
+    height: 40%;
+    margin: 40px auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+.box {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.box input {
+    padding: 10px;
+    border: 2px solid #3b4cca;
+    border-radius: 6px;
+    width: 150px;
+}
+
+.box button {
+    background-color: #3b4cca;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.pokemonList {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+    background-color: #2a75bb;
+    border-radius: 8px;
+}
+
+.card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 12px 20px;
+    border: 2px solid #e5e4de;
+    border-radius: 10px;
+}
+
+.actions button {
+    margin-left: 6px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.edit {
+    background-color: #3b4cca;
+    color: white;
+}
+
+.delete {
+    background-color: #cc0000;
+    color: white;
+}
+
+.listar {
+    background-color: #312d2d;
+    color: white;
+}
+
+.add {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #2a75bb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+}
