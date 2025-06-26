@@ -1,16 +1,17 @@
-const apiUrl = 'http://localhost:3000/pokemons';
+const apiUrl = 'http://localhost:3000/api/pokemon';
 
-let pokemons = []; 
+let pokemons = [];
 
+listarTodos();
 
 function listarTodos() {
     fetch(apiUrl)
         .then(res => res.json())
         .then(data => {
             pokemons = data;
-            renderizarLista(pokemons);
+            lista(pokemons);
         })
-        .catch(err => console.error("Erro ao listar:", erro));
+        .catch(err => console.error("Erro ao listar:", err));
 }
 
 function lista(lista) {
@@ -26,7 +27,7 @@ function lista(lista) {
         const card = document.createElement("div");
         card.className = "card";
         card.innerHTML = `
-    <span>#${pokemon.id} - ${pokemon.nome}</span>
+    <span>#${pokemon.id} - ${pokemon.name}</span>
     <div class="actions">
         <button class="edit" onclick="editarPokemon(${pokemon.id})">Editar</button>
         <button class="delete" onclick="excluirPokemon(${pokemon.id})">Excluir</button>
@@ -37,31 +38,39 @@ function lista(lista) {
 }
 
 function buscarPorNome() {
-    const name = document.getElementBy("searchId").value.trim();
-    if (name) {
+    const name = document.getElementById("searchId").value.trim();
+
+    if (!name) {
         alert("Digite um nome válido.");
         return;
     }
 
-    fetch(`${apiUrl}/${id}`)
+    fetch(`${apiUrl}/${encodeURIComponent(name)}`)
         .then(res => {
             if (!res.ok) throw new Error("Não encontrado");
             return res.json();
         })
-        .then(pokemon => renderizarLista([pokemon]))
+        .then(pokemon => lista([pokemon]))
         .catch(() => {
             document.getElementById("pokemonList").innerHTML = "<p>Pokémon não encontrado.</p>";
         });
 }
 
+
 function adicionarPokemon() {
     const nome = prompt("Digite o nome do Pokémon:");
-    if (!nome) return;
+    const tipo1 = prompt("Digite o tipo 1 do Pokémon:");
+    const tipo2 = prompt("Digite o tipo 2 do Pokémon:");
+
+    if (!nome || !tipo1 || !tipo2) {
+        alert("Preencha todos os campos corretamente.");
+        return;
+    }
 
     fetch(apiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome })
+        body: JSON.stringify({ name: nome, tipo1, tipo2 })
     })
         .then(() => listarTodos())
         .catch(err => console.error("Erro ao adicionar:", err));
@@ -69,13 +78,17 @@ function adicionarPokemon() {
 
 function editarPokemon(id) {
     const pokemon = pokemons.find(p => p.id === id);
-    const novoNome = prompt("Novo nome do Pokémon:", pokemon.nome || "");
+    const novoNome = prompt("Novo nome do Pokémon:", pokemon?.name || "");
+    const novoTipo1 = prompt("Novo tipo1 do Pokémon:", pokemon?.tipo1 || "");
+    const novoTipo2 = prompt("Novo tipo2 do Pokémon:", pokemon?.tipo2 || "");
     if (!novoNome) return;
+    if (!novoTipo1) return;
+    if (!novoTipo2) return;
 
     fetch(`${apiUrl}/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome: novoNome })
+        body: JSON.stringify({ name: novoNome, tipo1: novoTipo1, tipo2: novoTipo2 })
     })
         .then(() => listarTodos())
         .catch(err => console.error("Erro ao editar:", err));
@@ -92,9 +105,9 @@ function excluirPokemon(id) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    document.querySelector("button[onclick='']").onclick = buscarPorId;
-    document.querySelector(".add").onclick = adicionarPokemon;
-    document.querySelector(".listar").onclick = listarTodos;
+    document.getElementById("addBtn").onclick = adicionarPokemon;
+    document.getElementById("listBtn").onclick = listarTodos;
+    document.getElementById("searchBtn").onclick = buscarPorNome;
 
     listarTodos();
 });

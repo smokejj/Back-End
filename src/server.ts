@@ -11,13 +11,13 @@ const app: Application = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(cors({
-    origin: ['http://localhost:5500', "http://127.0.0.1:5500", "http://localhost:3000", "http://127.0.0.1:3000"]
+    origin: ['http://localhost:5500', "http://127.0.0.1:5500"]
 }))
 
 app.use(express.static('public'));
 
 app.get("/", (req: Request, res: Response) => {
-    res.status(200).sendFile(path.join("../public/index.html"));
+    res.status(200).sendFile(path.join("../public/cadastro.html"));
     return;
 })
 

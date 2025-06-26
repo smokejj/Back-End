@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, BeforeUpdate, AfterLoad } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column} from "typeorm";
 
 @Entity("pokemon")
 export class Pokemon {

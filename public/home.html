@@ -10,23 +10,23 @@
 
 <body>
     <main class="home">
-        <h1>Home
-            <div class="box">
-                <input type="text" id="searchId" placeholder="Buscar pelo nome" />
-                <button onclick="">Buscar</button>
+        <h1>Home</h1>
+
+        <div class="box">
+            <input type="text" id="searchId" placeholder="Buscar pelo nome" />
+            <button id="searchBtn">Buscar</button>
+        </div>
+
+        <section id="pokemonList" class="pokemonList"></section>
+
+        <div class="card">
+            <div class="actions">
+                <button id="addBtn" class="add">Adicionar Pokémon</button>
             </div>
-            <section id="pokemonList" class="pokemonList"></section>
-            <div class="card">
-                <div class="actions">
-                    <button class="edit" onclick="">Editar</button>
-                    <button class="delete" onclick="">Excluir</button>
-                    <button class="add" onclick="">Adicionar Pokémon</button>
-                    <button class="listar" onclick="">Listar todos</button>
-                </div>
-            </div>
+        </div>
     </main>
 
     <script src="./js/home.js"></script>
 </body>
-<script src="./js/home.js"></script>
+
 </html>

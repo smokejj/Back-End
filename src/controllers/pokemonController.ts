@@ -14,14 +14,14 @@ export class PokemonController {
 
     // Criar novo pokemon
     async create(req: Request, res: Response) {
-        const { name, tipo1, tipo2} = req.body
+        const { name, tipo1, tipo2 } = req.body
 
         const existName = await pokemonRepository.findOneBy({ name })
 
-if (existName) {
-    res.status(409).json({ message: 'Pokemon já existe' });
-    return;
-}
+        if (existName) {
+            res.status(409).json({ message: 'Pokemon já existe' });
+            return;
+        }
         if (name == '' || tipo1 == '') {
             res.status(400).json({ message: 'Preencha os campos necessarios' })
             return;

@@ -3,21 +3,21 @@ import { Request, Response } from "express";
 import { AppDataSource } from "../db/data-aource";
 import bcrypt from 'bcryptjs'
 
-const userRepository = AppDataSource.getRepository(User);
+const UserRepository = AppDataSource.getRepository(User);
 
-export class UserController {
+export class userController {
 
     async createUser(req: Request, res: Response) {
         const { email, password } = req.body;
 
         if (!email || !password) {
-            res.status(400).json({ message: "Insira todos campos!" })
+            res.status(400).json({ message: "Insira todos campos" })
         }
 
-        const verificaEmail = await userRepository.findOneBy({ email: email })
+        const verificaEmail = await UserRepository.findOneBy( {email} )
 
         if (verificaEmail) {
-            res.status(409).json({ message: "E-mail já em uso!" });
+            res.status(409).json({ message: "Deu erro, não sei" });
             return;
         }
 
@@ -28,7 +28,7 @@ export class UserController {
             return
         }
 
-        await userRepository.save(user);
+        await UserRepository.save(user);
         res.status(201).json({ message: "Usuário criado com sucesso", user: user })
         return;
     }
@@ -41,9 +41,9 @@ export class UserController {
             return;
         }
 
-        const verificaEmail = await userRepository.findOneBy({ email: email })
+        const verificaEmail = await UserRepository.findOneBy( {email} )
         if (!verificaEmail) {
-            res.status(404).json({ message: "E-mail não existe" });
+            res.status(404).json({ message: "Email não existe" });
             return;
         }
 
@@ -59,7 +59,7 @@ export class UserController {
     }
 
     async listUser(req: Request, res: Response) {
-        const user = await userRepository.find();
+        const user = await UserRepository.find();
         res.status(200).json(user);
         return;
     }
